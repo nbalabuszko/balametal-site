@@ -3,8 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ShoppingCart, Info } from "lucide-react";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 
 const products = [
   {
@@ -90,14 +88,7 @@ const products = [
 ];
 
 export default function CommissionedKnivesPage() {
-  const [lightboxImages, setLightboxImages] = useState([]);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
-  const openLightbox = (images) => {
-    setLightboxImages(images.map((src) => ({ src })));
-    setLightboxOpen(true);
-  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -124,8 +115,7 @@ export default function CommissionedKnivesPage() {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-48 object-cover rounded-xl mb-4 hover:scale-105 transition-transform duration-200 cursor-zoom-in"
-                onClick={() => product.gallery && openLightbox(product.gallery)}
+                className="w-full h-48 object-cover rounded-xl mb-4"
               />
               <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
               <p className="text-sm text-gray-500 mb-2">{product.description}</p>
@@ -147,8 +137,7 @@ export default function CommissionedKnivesPage() {
                       key={i}
                       src={img}
                       alt={`${product.name} view ${i + 1}`}
-                      className="w-full h-24 object-cover rounded-lg hover:scale-110 transition-transform duration-200 cursor-zoom-in"
-                      onClick={() => openLightbox(product.gallery)}
+                      className="w-full h-24 object-cover rounded-lg"
                     />
                   ))}
                 </div>
@@ -187,13 +176,6 @@ export default function CommissionedKnivesPage() {
           </p>
         )}
       </form>
-      {lightboxOpen && (
-        <Lightbox
-          open={lightboxOpen}
-          close={() => setLightboxOpen(false)}
-          slides={lightboxImages}
-        />
-      )}
     </div>
   );
 }
